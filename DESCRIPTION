@@ -1,0 +1,27 @@
+Package: ZIM
+Type: Package
+Title: Zero-Augmented Integration Method for External Summary Statistics
+Version: 0.1.0
+Authors@R: c(
+    person("Lu", "Deng", role = "aut"),
+    person("Jun", "Zhong", role = "aut"),
+    person("Xiaoyu", "Wang", role = "aut"),
+    person("Laufey T.", "Amundadottir", role = "aut"),
+    person("Kai", "Yu", email = "yuka@mail.nih.gov", role = c("aut", "cre")))
+Description: Implements the Zero-Augmented Integration Method (ZIM) for
+    integrating individual-level internal data with external regression
+    coefficient estimates. Cohort and case-control implementations support
+    common and different source populations, covariance estimation, and
+    alternative weighting strategies.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports:
+    stats,
+    utils
+Suggests:
+    gmm,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/kayst9/ZIM
+BugReports: https://github.com/kayst9/ZIM/issues
