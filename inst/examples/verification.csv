@@ -1,0 +1,3 @@
+"example","dataset_seed","datasets","p","m","n_internal","n_external","n_reference","covariance_source","generation_and_fit_seconds","saved_data_fit_seconds","generation_max_rss_GiB","replay_max_rss_GiB","input_md5","program_md5","estimates_match","success","R_version"
+"cohort_one_population",1,1,100,100,2000,4000,0,"internal_data",1.357,0.802,0.2544250488,0.2141876221,"2a10df870b18b682c2a60722d10fde7f","80b962b1ef609478c25edbec60973b7b",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"
+"cohort_two_populations",1,1,100,100,2000,4000,500,"internal_and_reference_data",1.091,0.476,0.2146453857,0.1579437256,"d665984b1d86ba15f0648989f30295ba","80b962b1ef609478c25edbec60973b7b",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"
