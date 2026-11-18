@@ -48,3 +48,10 @@ allowing all four dataset realizations to use seed 1.
 
 The seed was set only in the private preparation wrapper. Seed metadata remain
 available outside the distributed simulation scripts. All data are simulated.
+
+The PCA controls stored in each dataset reflect its original generation run.
+The example scripts apply their current `pc_var`, `pc_max_condition`, and
+`pca_rule` settings after loading the data. This changes only the analysis
+controls and leaves the supplied dataset files unchanged. See the example
+READMEs for the current settings and `inst/examples/pca_verification.csv` for
+saved-data replay checks.
