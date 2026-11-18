@@ -86,8 +86,8 @@ is `Y ~ S`. Both scripts use:
 ```r
 beta_method = "GMM"
 inverse_method = "hbb_pca"
-pc_var = 0.99
-pc_max_condition = 200
+pc_var = 0.999
+pc_max_condition = 500
 pca_rule = "condition_or_variance"
 pca_scale = "covariance"
 ridge = 0
@@ -97,15 +97,21 @@ external_n_case = 2000
 external_n_control = 2000
 ```
 
+The selection rule retains the smaller number of components allowed by the
+99.9% variance target and the condition-number limit of 500. The retained
+variance can therefore be below 99.9%.
+
 Covariance is estimated from internal data for one population, or internal data
 and external-population reference controls for two populations. The generated
 external individual-level data supply coefficient estimates only; no external
 covariance matrix is computed or provided.
 
 The scripts retain the source studies' GLM controls and GMM starting methods.
-All scientific and analysis settings are exposed in each script's `settings`
-list for generation mode; default analysis uses the settings stored in the
-dataset. Each example fits only one setting to one dataset.
+The `settings` list exposes the design and analysis parameters. The current
+`pc_var`, `pc_max_condition`, and `pca_rule` settings apply to both saved-data
+and generation runs. Other settings are loaded from the saved dataset during
+a default run. Changing the PCA controls does not require regenerating or
+modifying the data. Each example fits one setting to one dataset.
 
 ## Outputs
 
@@ -131,3 +137,8 @@ one generation run followed by a fit loaded from each saved dataset.
 `case_control_verification.csv` records the checks and resource use. Expected
 seed-1 estimates are provided under `expected-results/`. Runtime and memory
 depend on the machine and R configuration.
+
+The original verification CSVs record dataset-generation checks.
+`pca_verification.csv` records saved-data replay with the current PCA settings.
+All four examples reproduce the existing expected estimates without modifying
+the supplied datasets.

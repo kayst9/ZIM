@@ -1,0 +1,5 @@
+"example","pc_var","pc_max_condition","pca_rule","n_pc_used","pc_var_used","retained_condition_number","input_md5","program_md5","example_md5","estimates_match","success","R_version"
+"cohort_one_population",0.999,500,"condition_or_variance",1,0.998879445084987,1,"2a10df870b18b682c2a60722d10fde7f","80b962b1ef609478c25edbec60973b7b","e42dfc7e62c4f35aa8770869c7fd60ad",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"
+"cohort_two_populations",0.999,500,"condition_or_variance",1,0.997759514762614,1,"d665984b1d86ba15f0648989f30295ba","80b962b1ef609478c25edbec60973b7b","c577200661693b9c3f1b20988c53df68",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"
+"case_control_one_population",0.999,500,"condition_or_variance",1,0.999632743500529,1,"8c97d2d64bac05e9b1436dd6ec1bc1b6","e18cb2f1e66336ce6c2ea73e7e399e52","caf4f70e0d65a375ce363300d68f65d7",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"
+"case_control_two_populations",0.999,500,"condition_or_variance",1,0.999347812314978,1,"22c6c91efa3ae9cad9b03c7b2784de54","e18cb2f1e66336ce6c2ea73e7e399e52","a1e4e76a3015e0428a1b2388e2f49a71",TRUE,TRUE,"R version 4.5.1 (2025-06-13)"

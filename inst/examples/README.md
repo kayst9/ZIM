@@ -91,8 +91,8 @@ internal target is `Y ~ S`. Both examples set:
 ```r
 beta_method = "GMM"
 inverse_method = "hbb_pca"
-pc_var = 0.99
-pc_max_condition = 200
+pc_var = 0.999
+pc_max_condition = 500
 pca_rule = "condition_or_variance"
 pca_scale = "covariance"
 ridge = 0
@@ -100,16 +100,24 @@ Sigma_beta_beta = NULL
 n_external = 4000
 ```
 
+The selection rule retains the smaller number of components allowed by the
+99.9% variance target and the condition-number limit of 500. The retained
+variance can therefore be below 99.9%.
+
 Covariance is estimated by the cohort program from internal data for one
 population, or internal plus reference data for two populations. External
 individual-level data are used only to obtain coefficient estimates. No
 external covariance matrix is computed or supplied.
 
-The `settings` list near the top of each script exposes the generation-mode design and
-analysis parameters. Default analysis uses the settings stored in the dataset.
-To demonstrate a smaller summary set, change `m` to a value below 100; these
-select the first `m` SNPs, while `S` still uses all 100 SNPs. Use `--generate`
-after changing those settings. Each script fits a single setting to one dataset.
+The `settings` list near the top of each script exposes the design and analysis
+parameters. The current `pc_var`, `pc_max_condition`, and `pca_rule` settings
+apply to both saved-data and generation runs. Other settings are loaded from
+the saved dataset during a default run. Thus, changing the PCA controls does
+not require regenerating or modifying the data.
+
+To demonstrate a smaller summary set, change `m` to a value below 100 and use
+`--generate`. This selects the first `m` SNPs, while `S` still uses all 100 SNPs.
+Each script fits a single setting to one dataset.
 
 ## Output
 
@@ -134,3 +142,8 @@ All four examples are checked with the canonical ZIM programs: one generation
 run followed by a fit loaded from the saved inputs. `verification.csv` records
 the cohort checks and resource use. Expected seed-1 estimates are provided under
 `expected-results/`. Runtime and memory depend on the machine and R configuration.
+
+The original verification CSVs record dataset-generation checks.
+`pca_verification.csv` records saved-data replay with the current PCA settings.
+All four examples reproduce the existing expected estimates without modifying
+the supplied datasets.

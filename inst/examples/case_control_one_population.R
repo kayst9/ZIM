@@ -34,8 +34,8 @@ run_case_control_one_population <- function(example_dir = dirname(example_file))
     outcome_model = c("(Intercept)" = -0.014, S = 0.015),
     beta_method = "GMM",
     inverse_method = "hbb_pca",
-    pc_var = 0.99,
-    pc_max_condition = 200,
+    pc_var = 0.999,
+    pc_max_condition = 500,
     pca_rule = "condition_or_variance",
     pca_scale = "covariance",
     eig_tol = 1e-10,
@@ -49,6 +49,7 @@ run_case_control_one_population <- function(example_dir = dirname(example_file))
     sigma_B_centering = "separate",
     shrink_structured = TRUE
   )
+  pca_settings <- settings[c("pc_var", "pc_max_condition", "pca_rule")]
 
   started <- proc.time()[["elapsed"]]
   if (setup$generate) {
@@ -86,6 +87,7 @@ run_case_control_one_population <- function(example_dir = dirname(example_file))
     internal_data <- inputs$internal_data
     beta_tilde <- inputs$beta_tilde
     settings <- inputs$settings
+    settings[names(pca_settings)] <- pca_settings
     generation <- inputs$generation
     rm(inputs)
     message("Loaded input dataset from ", setup$data_file)
@@ -94,7 +96,8 @@ run_case_control_one_population <- function(example_dir = dirname(example_file))
     list(alpha = ~1, beta = stats::reformulate(xj))
   })
 
-  message("Fitting ZIM-GMM with Hbb PCA variance target 0.99 and condition cap 200.")
+  message("Fitting ZIM-GMM with Hbb PCA variance target ", settings$pc_var,
+          " and condition cap ", settings$pc_max_condition, ".")
   fit <- setup$core$zim_case_control(
     internal_data = internal_data,
     Y = "Y",

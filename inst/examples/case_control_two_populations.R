@@ -50,8 +50,8 @@ run_case_control_two_populations <- function(example_dir = dirname(example_file)
     outcome_model = c("(Intercept)" = -0.014, S = 0.015),
     beta_method = "GMM",
     inverse_method = "hbb_pca",
-    pc_var = 0.99,
-    pc_max_condition = 200,
+    pc_var = 0.999,
+    pc_max_condition = 500,
     pca_rule = "condition_or_variance",
     pca_scale = "covariance",
     eig_tol = 1e-10,
@@ -65,6 +65,7 @@ run_case_control_two_populations <- function(example_dir = dirname(example_file)
     gmm_solver = "newton",
     gmm_score_tol = 1e-8
   )
+  pca_settings <- settings[c("pc_var", "pc_max_condition", "pca_rule")]
   if (setup$generate) {
     design <- cc_example_design(example_dir, settings$p)
     message("Generating internal study (", settings$internal_cases,
@@ -111,6 +112,7 @@ run_case_control_two_populations <- function(example_dir = dirname(example_file)
     reference <- inputs$reference_data
     beta_tilde <- inputs$beta_tilde
     settings <- inputs$settings
+    settings[names(pca_settings)] <- pca_settings
     generation <- inputs$generation
     rm(inputs)
     message("Loaded input dataset from ", setup$data_file)

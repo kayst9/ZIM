@@ -30,8 +30,8 @@ run_cohort_one_population <- function(example_dir = dirname(example_file)) {
     outcome_model = c("(Intercept)" = -0.014, S = 0.015),
     beta_method = "GMM",
     inverse_method = "hbb_pca",
-    pc_var = 0.99,
-    pc_max_condition = 200,
+    pc_var = 0.999,
+    pc_max_condition = 500,
     pca_rule = "condition_or_variance",
     pca_scale = "covariance",
     eig_tol = 1e-10,
@@ -47,6 +47,7 @@ run_cohort_one_population <- function(example_dir = dirname(example_file)) {
     gmm_max_halving = 30L,
     gmm_newton_fallback_to_optim = TRUE
   )
+  pca_settings <- settings[c("pc_var", "pc_max_condition", "pca_rule")]
 
   started <- proc.time()[["elapsed"]]
   if (setup$generate) {
@@ -75,6 +76,7 @@ run_cohort_one_population <- function(example_dir = dirname(example_file)) {
     internal_data <- inputs$internal_data
     beta_tilde <- inputs$beta_tilde
     settings <- inputs$settings
+    settings[names(pca_settings)] <- pca_settings
     generation <- inputs$generation
     design <- inputs$design
     rm(inputs)
@@ -88,7 +90,8 @@ run_cohort_one_population <- function(example_dir = dirname(example_file)) {
   if (!dir.create(cache_dir)) stop("Cannot create the temporary H cache directory.")
   on.exit(unlink(cache_dir, recursive = TRUE), add = TRUE)
 
-  message("Fitting ZIM-GMM with Hbb PCA variance target 0.99 and condition cap 200.")
+  message("Fitting ZIM-GMM with Hbb PCA variance target ", settings$pc_var,
+          " and condition cap ", settings$pc_max_condition, ".")
   fit <- setup$core$zim_cohort(
     internal_data = internal_data,
     Y = "Y",

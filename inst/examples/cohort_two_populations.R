@@ -34,8 +34,8 @@ run_cohort_two_populations <- function(example_dir = dirname(example_file)) {
     outcome_model = c("(Intercept)" = -0.014, S = 0.015),
     beta_method = "GMM",
     inverse_method = "hbb_pca",
-    pc_var = 0.99,
-    pc_max_condition = 200,
+    pc_var = 0.999,
+    pc_max_condition = 500,
     pca_rule = "condition_or_variance",
     pca_scale = "covariance",
     eig_tol = 1e-10,
@@ -51,6 +51,7 @@ run_cohort_two_populations <- function(example_dir = dirname(example_file)) {
     gmm_max_halving = 30L,
     gmm_newton_fallback_to_optim = TRUE
   )
+  pca_settings <- settings[c("pc_var", "pc_max_condition", "pca_rule")]
   if (setup$generate) {
     design <- example_design(settings$p, example_dir = example_dir)
     message("Generating internal cohort (n = ", settings$n_internal, ").")
@@ -88,6 +89,7 @@ run_cohort_two_populations <- function(example_dir = dirname(example_file)) {
     reference <- inputs$reference_data
     beta_tilde <- inputs$beta_tilde
     settings <- inputs$settings
+    settings[names(pca_settings)] <- pca_settings
     generation <- inputs$generation
     design <- inputs$design
     rm(inputs)
